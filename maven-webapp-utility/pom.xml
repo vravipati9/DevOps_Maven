@@ -17,14 +17,11 @@
         <version.powermock>1.6.4</version.powermock>
         <version.mockito>1.10.19</version.mockito>
         <version.java>1.8</version.java>
-        <version.plugin.compiler>3.5.1</version.plugin.compiler>
         <version.plugin.deploy>2.8.2</version.plugin.deploy>
-        <version.plugin.gpg>1.6</version.plugin.gpg>
-        <version.plugin.javadoc>2.10.3</version.plugin.javadoc>
-        <version.plugin.release>2.5.3</version.plugin.release>
-        <version.plugin.surefire>2.19.1</version.plugin.surefire>
         <version.plugin.source>3.0.0</version.plugin.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+         <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
   
 
