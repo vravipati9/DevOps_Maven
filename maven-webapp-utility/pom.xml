@@ -46,7 +46,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    	<distributionManagement>
+    <distributionManagement>
 		<repository>
 			<id>central</id>
 			<name>Veeras-MacBook-Pro.local-releases</name>
