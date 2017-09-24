@@ -1,28 +1,25 @@
 node {
-    stage('Configure') {
-        env.PATH = "${tool 'maven-3.5.0'}/bin:${env.PATH}"
-        version = '1.0.' + env.BUILD_NUMBER
-        currentBuild.displayName = version
+   def mvnHome
+   stage('Preparation') { // for display purposes
+      // Get some code from a GitHub repository
+      git 'https://github.com/vvsrk/DevOps.git'
+      // Get the Maven tool.
+      // ** NOTE: This 'M3' Maven tool must be configured
+      // **       in the global configuration.           
+      mvnHome = tool 'M3'
+   }
+   stage('Build') {
+  sh "echo \'\n============!!!!!!!======'"
+  sh "pwd"
 
-        properties([
-                buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '10')),
-                [$class: 'GithubProjectProperty', displayName: '', projectUrlStr: 'https://github.com/vvsrk/DevOps/tree/master/maven-webapp/'],
-                pipelineTriggers([[$class: 'GitHubPushTrigger']])
-            ])
-    }
+      // Run the maven build
+      if (isUnix()) {
+           sh "'${mvnHome}/bin/mvn' -f maven-webapp/pom.xml clean install"
 
-    stage('Checkout') {
-        git 'https://github.com/vvsrk/DevOps'
-    }
-
-    stage('Version') {
-        sh "echo \'\ninfo.build.version=\'$version >> src/main/resources/application.properties || true"
-        sh "mvn -B -V -U -e versions:set -DnewVersion=$version"
-    }
-
-    stage('Build') {
-        sh 'mvn -B -V -U -e clean package'
-    }
-
-
+         //sh "'${mvnHome}/bin/mvn' clean"
+      } else {
+         bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
+      }
+   }
+   
 }
